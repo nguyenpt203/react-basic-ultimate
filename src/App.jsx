@@ -8,11 +8,15 @@ const App = () => {
 
   const title = "Todo List";
 
+  const addNewTodo = (name) => {
+    alert(`Say hi ${name}`)
+  };
+
   return (
 
     <div className="todo-container">
       <TodoTitle title={title} />
-      <TodoNew />
+      <TodoNew addNewTodo={addNewTodo} />
       <TodoData />
       <div className="todo-image">
         <img className='logo' src={reactLogo} alt="react-logo" />
