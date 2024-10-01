@@ -6,7 +6,7 @@ import './style.css';
 const MyComponent = () => {
     const fullName = "Phùng Thái Nguyên";
     const age = 21;
-    const 
+
     return (
         <>
             <div className="abc">{fullName}</div>
