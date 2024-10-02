@@ -30,6 +30,12 @@
     font-size: 20px;
 }
 
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
 .todo-input {
     font-size: 20px;
 }

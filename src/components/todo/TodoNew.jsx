@@ -3,16 +3,17 @@ import { useState } from "react";
 const TodoNew = (props) => {
     const { addNewTodo } = props;
 
-    const [valueInput, setValueInput] = useState("")
+    const [valueInput, setValueInput] = useState("Nguyên")
     const handleClick = () => {
         addNewTodo(valueInput)
+        setValueInput("")
     }
     const handleOnchange = (name) => {
         setValueInput(name)
     }
     return (
         <div className="todo-new">
-            <input className="todo-input" type="text" name="" id="" onChange={(event) => handleOnchange(event.target.value)} />
+            <input className="todo-input" type="text" name="" id="" value={valueInput} onChange={(event) => handleOnchange(event.target.value)} />
             <button className="todo-btn" style={{ cursor: "pointer" }} onClick={() => { handleClick() }}>Add</button>
 
             <div className="todo-input-value">
