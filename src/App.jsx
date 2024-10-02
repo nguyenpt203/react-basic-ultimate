@@ -6,6 +6,8 @@ import reactLogo from './assets/react.svg';
 import { useState } from 'react';
 import Header from './components/layouts/header';
 import Footer from './components/layouts/footer';
+import { Outlet } from 'react-router-dom';
+
 const App = () => {
 
   const title = "Todo List";
@@ -38,6 +40,7 @@ const App = () => {
           <img className='logo' src={reactLogo} alt="react-logo" />
         </div>)}
       </div>
+      <Outlet />
       <Footer />
     </>
 
