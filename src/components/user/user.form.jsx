@@ -1,7 +1,7 @@
 import { Button, Input, Modal, notification } from "antd";
 import { useState } from "react";
 import { createUserAPI } from "../../services/api.services";
-const UserForm = () => {
+const UserForm = (props) => {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
@@ -9,6 +9,7 @@ const UserForm = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const { loadUser } = props
     const handleSubmitBtn = async () => {
         const res = await createUserAPI(fullName, email, phone, password)
         if (res.data) {
@@ -16,7 +17,8 @@ const UserForm = () => {
                 message: "Create User",
                 description: "Tạo user thành công"
             })
-            setIsModalOpen(false)
+            resetAndCloseModal()
+            await loadUser()
         } else {
             notification.error({
                 message: "Error create user",
@@ -24,6 +26,14 @@ const UserForm = () => {
             })
         }
 
+    }
+
+    const resetAndCloseModal = () => {
+        setIsModalOpen(false)
+        setFullName("")
+        setEmail("")
+        setPhone("")
+        setPassWord("")
     }
     return (
         <div className="user-form" style={{ margin: '10px 0' }}>
@@ -38,10 +48,9 @@ const UserForm = () => {
                 title="Create User"
                 open={isModalOpen}
                 onOk={() => { handleSubmitBtn() }}
-                onCancel={() => { setIsModalOpen(false) }}
+                onCancel={() => { resetAndCloseModal() }}
                 maskClosable={false}
                 okText={"CREATE"}
-
             >
                 <div style={{ display: 'flex', gap: '15px', flexDirection: 'column' }}>
                     <div>
