@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Input, Modal, notification } from "antd";
-import { createUserAPI } from "../../services/api.services";
+import { updateUserAPI } from "../../services/api.services";
 
 const UpdateUserModal = (props) => {
     const [phone, setPhone] = useState("")
     const [fullName, setFullName] = useState("");
     const [id, setId] = useState("")
 
-    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate } = props;
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props;
 
     useEffect(() => {
         if (dataUpdate) {
@@ -18,14 +18,14 @@ const UpdateUserModal = (props) => {
     }, [dataUpdate])
 
     const handleSubmitBtn = async () => {
-        const res = await createUserAPI(fullName, email, phone, password)
+        const res = await updateUserAPI(id, fullName, phone)
         if (res.data) {
             notification.success({
-                message: "Create User",
-                description: "Tạo user thành công"
+                message: "Update User",
+                description: "Cập nhật user thành công"
             })
             resetAndCloseModal()
-            // await loadUser()
+            await loadUser()
         } else {
             notification.error({
                 message: "Error create user",
@@ -46,7 +46,7 @@ const UpdateUserModal = (props) => {
         <Modal
             title="Update a User"
             open={isModalUpdateOpen}
-            onOk={() => { handleSubmitBtn() }}
+            onOk={handleSubmitBtn}
             onCancel={() => { resetAndCloseModal() }}
             maskClosable={false}
             okText={"SAVE"}
